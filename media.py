@@ -96,7 +96,7 @@ def insertMedia(cursor, connection):
 
     print("Inserindo nova mídia...")
     try:
-        cursor.execute("INSERT INTO Midia(titulo, ano_lancamento, tipo, sinopse, status, nro_capitulos, duracao, plataforma) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING id_midia",
+        cursor.execute("INSERT INTO Midia(titulo, data_lancamento, tipo, sinopse, status, nro_capitulos, duracao, plataforma) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING id_midia",
                        (title, year, mediaType, sinopsis, status, chapterCount, duration, platform))
         connection.commit()
     except psycopg2.errors.UniqueViolation:
@@ -134,8 +134,29 @@ def insertMedia(cursor, connection):
 def listMedia(cursor):
     clearScreen()
     cursor.execute(
-        'SELECT M.titulo as "Título", M.ano_lancamento as "Ano de Lançamento", M.tipo as "Tipo", SUBSTRING(M.sinopse,1,20) as "Sinopse", M.status as "Status", COALESCE(CAST(M.nro_capitulos as VARCHAR), \'-\') as "Número de Capítulos", COALESCE(CAST(M.duracao as VARCHAR), \'-\') as "Duração", COALESCE(M.plataforma, \'-\') as "Plataforma", CASE WHEN UPPER(M.tipo) = \'SERIE\' THEN CAST(COALESCE(T.nro_temporadas,0) AS VARCHAR) ELSE \'-\' END as "Número de Temporadas", CASE WHEN UPPER(M.tipo) = \'SERIE\' THEN CAST(COALESCE(E.nro_episodio,0) AS VARCHAR) ELSE \'-\' END as "Número de Episódios"  FROM Midia as M LEFT JOIN (SELECT id_midia, COUNT(*) as nro_temporadas FROM Temporada GROUP BY id_midia) as T ON M.id_midia = T.id_midia LEFT JOIN (SELECT id_midia, COUNT(*) as nro_episodio FROM Episodio GROUP BY id_midia) as E ON M.id_midia = E.id_midia')
+        'SELECT M.titulo as "Título", M.data_lancamento as "Ano de Lançamento", M.tipo as "Tipo", SUBSTRING(M.sinopse,1,20) as "Sinopse", M.status as "Status", COALESCE(CAST(M.nro_capitulos as VARCHAR), \'-\') as "Número de Capítulos", COALESCE(CAST(M.duracao as VARCHAR), \'-\') as "Duração", COALESCE(M.plataforma, \'-\') as "Plataforma", CASE WHEN UPPER(M.tipo) = \'SERIE\' THEN CAST(COALESCE(T.nro_temporadas,0) AS VARCHAR) ELSE \'-\' END as "Número de Temporadas", CASE WHEN UPPER(M.tipo) = \'SERIE\' THEN CAST(COALESCE(E.nro_episodio,0) AS VARCHAR) ELSE \'-\' END as "Número de Episódios"  FROM Midia as M LEFT JOIN (SELECT id_midia, COUNT(*) as nro_temporadas FROM Temporada GROUP BY id_midia) as T ON M.id_midia = T.id_midia LEFT JOIN (SELECT id_midia, COUNT(*) as nro_episodio FROM Episodio GROUP BY id_midia) as E ON M.id_midia = E.id_midia')
     print("Mídias cadastradas:")
     table = from_db_cursor(cursor)
     print(table)
     input("Pressione ENTER para fechar...")
+
+
+def listActorFromMovie(cursor):
+    clearScreen()
+    movieName = readString("Título do filme: ", 255)
+    try:
+        cursor.execute(
+            "SELECT id_midia FROM Midia WHERE titulo = %s AND UPPER(tipo) = 'FILME' ", (movieName,))
+        if cursor.rowcount == 0:
+            print(f"Filme {movieName} não encontrado!")
+            return
+        cursor.execute(
+            'SELECT Participacao.nome_pessoa as "Nome", TO_CHAR(Participacao.data_nasc_pessoa,\'DD/MM/YYYY\') as "Data de Nascimento", COALESCE(Indicacao.indicacao,\'-\') as "Indicação", CASE WHEN Indicacao.premiado = TRUE THEN \'Sim\' WHEN Indicacao.premiado = FALSE THEN \'Não\' ELSE \'-\' END as "Premiado" FROM (SELECT id_midia FROM Midia WHERE Midia.titulo = %s) M JOIN Participacao ON (M.id_midia = Participacao.id_midia AND Participacao.natureza = \'ATOR\') LEFT JOIN Indicacao ON (Participacao.id_participacao = Indicacao.id_participacao)', (movieName,))
+        print(f"Atores do Filme {movieName}:")
+        table = from_db_cursor(cursor)
+        print(table)
+        input("Pressione ENTER para fechar...")
+    except Exception as e:
+        print(e)
+        print(f"Erro ao buscar atores do filme {movieName}!")
+        return False

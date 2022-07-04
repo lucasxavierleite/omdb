@@ -1,28 +1,51 @@
-INSERT INTO Usuario(email, nome, senha, tipo) VALUES
+INSERT INTO
+    Usuario(email, nome, senha, tipo)
+VALUES
     ('mod@mod.me', 'mod', 'mod', 'MODERADOR'),
     ('mod2@mod.me', 'mod2', 'mod2', 'MODERADOR'),
     ('a@b.com', 'funalo23', 'senha123', 'USUARIO'),
-    ('b@c.com', 'outro_fulano42', 'senhaforte', 'USUARIO'),
+    (
+        'b@c.com',
+        'outro_fulano42',
+        'senhaforte',
+        'USUARIO'
+    ),
     ('c@d.com', 'ciclano1', 'minhasenha', 'USUARIO');
 
-INSERT INTO Promocao(email_usuario, data, status) VALUES
+INSERT INTO
+    Promocao(email_usuario, data, status)
+VALUES
     ('b@c.com', '2022-06-18', 'EM ANDAMENTO'),
     ('c@d.com', '2022-06-22', 'EM ANDAMENTO'),
     ('b@c.com', '2022-05-10', 'INDEFERIDA');
 
-INSERT INTO Voto(email_usuario, data, email_moderador, voto) VALUES
+INSERT INTO
+    Voto(email_usuario, data, email_moderador, voto)
+VALUES
     ('b@c.com', '2022-06-18', 'mod@mod.me', true),
     ('c@d.com', '2022-06-22', 'mod@mod.me', false),
     ('c@d.com', '2022-06-22', 'mod2@mod.me', true),
     ('b@c.com', '2022-05-10', 'mod@mod.me', true),
     ('b@c.com', '2022-05-10', 'mod2@mod.me', false);
 
-INSERT INTO Midia(id_midia, titulo, data_lancamento, tipo, sinopse, status, nro_capitulos, duracao, plataforma) VALUES
+INSERT INTO
+    Midia(
+        id_midia,
+        titulo,
+        data_lancamento,
+        tipo,
+        sinopse,
+        status,
+        nro_capitulos,
+        duracao,
+        plataforma
+    )
+VALUES
     (
         '58d2a1b9-ab9d-41f1-93e4-b80073bcef99',
         'Avatar',
         '2009-12-18',
-        'FILME', 
+        'FILME',
         'Um militar paraplégico despachado para a lua Pandora em uma missão única fica dividido entre seguir suas ordens e proteger o mundo que ele sente ser sua casa.',
         'FINALIZADA',
         NULL,
@@ -118,7 +141,9 @@ INSERT INTO Midia(id_midia, titulo, data_lancamento, tipo, sinopse, status, nro_
         NULL
     );
 
-INSERT INTO Genero(nome) VALUES
+INSERT INTO
+    Genero(nome)
+VALUES
     ('ação'),
     ('aventura'),
     ('fantasia'),
@@ -128,57 +153,190 @@ INSERT INTO Genero(nome) VALUES
     ('comédia romântica'),
     ('RPG');
 
-
-INSERT INTO Midia_Genero(id_midia, genero) VALUES
-    ('58d2a1b9-ab9d-41f1-93e4-b80073bcef99', 'ficção científica'),
-    ('05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'ficção científica'),
+INSERT INTO
+    Midia_Genero(id_midia, genero)
+VALUES
+    (
+        '58d2a1b9-ab9d-41f1-93e4-b80073bcef99',
+        'ficção científica'
+    ),
+    (
+        '05b4c947-7856-4a4c-ae85-4a1436b2cc31',
+        'ficção científica'
+    ),
     ('c53b10f2-e0f9-49c5-a130-a0ac594d8611', 'ação'),
-    ('c53b10f2-e0f9-49c5-a130-a0ac594d8611', 'fantasia'),
-    ('1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef', 'comédia romântica'),
-    ('07abe988-4f6f-40c6-a985-c470371ba4ee', 'drama médico'),
+    (
+        'c53b10f2-e0f9-49c5-a130-a0ac594d8611',
+        'fantasia'
+    ),
+    (
+        '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef',
+        'comédia romântica'
+    ),
+    (
+        '07abe988-4f6f-40c6-a985-c470371ba4ee',
+        'drama médico'
+    ),
     ('07abe988-4f6f-40c6-a985-c470371ba4ee', 'drama'),
-    ('07abe988-4f6f-40c6-a985-c470371ba4ee', 'comédia romântica'),
+    (
+        '07abe988-4f6f-40c6-a985-c470371ba4ee',
+        'comédia romântica'
+    ),
     ('db5e85db-25f6-4d3b-a78c-2c64bc4812fc', 'ação'),
-    ('db5e85db-25f6-4d3b-a78c-2c64bc4812fc', 'aventura'),
-    ('db5e85db-25f6-4d3b-a78c-2c64bc4812fc', 'fantasia'),
+    (
+        'db5e85db-25f6-4d3b-a78c-2c64bc4812fc',
+        'aventura'
+    ),
+    (
+        'db5e85db-25f6-4d3b-a78c-2c64bc4812fc',
+        'fantasia'
+    ),
     ('db5e85db-25f6-4d3b-a78c-2c64bc4812fc', 'RPG'),
-    ('92a8e48e-20c5-4269-addb-bc050a2711e6', 'aventura'),
-    ('92a8e48e-20c5-4269-addb-bc050a2711e6', 'fantasia');
+    (
+        '92a8e48e-20c5-4269-addb-bc050a2711e6',
+        'aventura'
+    ),
+    (
+        '92a8e48e-20c5-4269-addb-bc050a2711e6',
+        'fantasia'
+    );
 
-INSERT INTO Temporada(id_midia, nro_temporada, nome, sinopse) VALUES
-    ('1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef', 1, 'Temporada 1', 'Após abandonar Barry, seu noivo, no altar, Rachel se muda para o apartamento de Monica, sua melhor amiga da época do colégio, e começa a trabalhar como garçonete no Central Perk. Ross, então, finalmente sente que esse é o momento de se declarar para Rachel, mas, enquanto tenta achar um jeito de fazer isso, precisa lidar com a chegada do primeiro filho com a ex-esposa. Joey continua insistindo na carreira de ator e Phoebe trabalha como massagista. Já Chandler decide terminar o namoro com Janice, logo descobrindo que isso será mais difícil do que parece.'),
-    ('1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef', 2, 'Temporada 2', 'Quando Ross retorna aos Estados Unidos, Rachel vai até o aeroporto se declarar para ele, mas acaba encontrando uma grande e nada agradável surpresa. Monica é demitida de seu trabalho como chef no restaurante e acaba conseguindo emprego como garçonete. Enquanto isso, Joey é escalado para um papel de destaque na novela Days of Our Lives e decide se mudar do apartamento que divide com Chandler, que passa a procurar por um novo colega de quarto.'),
-    ('07abe988-4f6f-40c6-a985-c470371ba4ee', 1, 'Temporada 1', 'Meredith Grey (Ellen Pompeo) começa a trabalhar no Seattle Grace Hospital e logo descobre que passou a noite com um dos seus chefes, Dr. Derek Shepherd (Patrick Dempsey). Enquanto enfrenta os desafios da vida profissional, ela se aproxima dos outros internos liderados pela residente Dra. Bailey (Chandra Wilson): Cristina Yang (Sandra Oh), Izzie Stevens (Katherine Heigl), George O''Malley (T.R. Knight) e Alex Karev (Justin Chambers).'),
-    ('07abe988-4f6f-40c6-a985-c470371ba4ee', 2, 'Temporada 2', 'No agitado Seattle Grace Hospital, a relação entre pacientes e médicos se tornam cada vez mais estreita à medida que os dias se passam. É aí que a Dra. Izzie (Katherine Heigl) se apaixona por Denny Duquette (Jeffrey Dean Morgan), um paciente em estado crítico. Além disso, Addison (Kate Walsh) e Mark Sloan (Eric Dane) integram a equipe do hospital.');
+INSERT INTO
+    Temporada(id_midia, nro_temporada, nome, sinopse)
+VALUES
+    (
+        '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef',
+        1,
+        'Temporada 1',
+        'Após abandonar Barry, seu noivo, no altar, Rachel se muda para o apartamento de Monica, sua melhor amiga da época do colégio, e começa a trabalhar como garçonete no Central Perk. Ross, então, finalmente sente que esse é o momento de se declarar para Rachel, mas, enquanto tenta achar um jeito de fazer isso, precisa lidar com a chegada do primeiro filho com a ex-esposa. Joey continua insistindo na carreira de ator e Phoebe trabalha como massagista. Já Chandler decide terminar o namoro com Janice, logo descobrindo que isso será mais difícil do que parece.'
+    ),
+    (
+        '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef',
+        2,
+        'Temporada 2',
+        'Quando Ross retorna aos Estados Unidos, Rachel vai até o aeroporto se declarar para ele, mas acaba encontrando uma grande e nada agradável surpresa. Monica é demitida de seu trabalho como chef no restaurante e acaba conseguindo emprego como garçonete. Enquanto isso, Joey é escalado para um papel de destaque na novela Days of Our Lives e decide se mudar do apartamento que divide com Chandler, que passa a procurar por um novo colega de quarto.'
+    ),
+    (
+        '07abe988-4f6f-40c6-a985-c470371ba4ee',
+        1,
+        'Temporada 1',
+        'Meredith Grey (Ellen Pompeo) começa a trabalhar no Seattle Grace Hospital e logo descobre que passou a noite com um dos seus chefes, Dr. Derek Shepherd (Patrick Dempsey). Enquanto enfrenta os desafios da vida profissional, ela se aproxima dos outros internos liderados pela residente Dra. Bailey (Chandra Wilson): Cristina Yang (Sandra Oh), Izzie Stevens (Katherine Heigl), George O''Malley (T.R. Knight) e Alex Karev (Justin Chambers).'
+    ),
+    (
+        '07abe988-4f6f-40c6-a985-c470371ba4ee',
+        2,
+        'Temporada 2',
+        'No agitado Seattle Grace Hospital, a relação entre pacientes e médicos se tornam cada vez mais estreita à medida que os dias se passam. É aí que a Dra. Izzie (Katherine Heigl) se apaixona por Denny Duquette (Jeffrey Dean Morgan), um paciente em estado crítico. Além disso, Addison (Kate Walsh) e Mark Sloan (Eric Dane) integram a equipe do hospital.'
+    );
 
-INSERT INTO Episodio(id_midia, nro_temporada, nro_episodio, nome, sinopse) VALUES
-    ('1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef', 1, 1, 'The Pilot', 'Monica fala com os rapazes sobre Paul, o cara do vinho, e ela jura que não está saindo com ele. Ross está depressivo, porque sua ex-mulher acabou de se mudar para viver com sua amante. Então, Rachel invade o Central Perk vestida de noiva, porque acabou de deixar o noivo plantado no altar. Rachel diz a seu pai que ficará com Monica, para a surpresa da irmã de Ross.'),
-    ('1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef', 1, 2, 'The One with the Sonogram at the End', 'Ross descobre que sua ex-mulher, Carol, está grávida dele. Ela e Susan (sua amante) querem que Ross faça parte da vida do bebê. Monica recebe seus pais para jantar e sofre com a delicada tortura imposta por sua mãe. Rachel decide devolver a aliança a Barry (seu ex-noivo), mas quando ela chega a seu consultório, descobre que ele começou a ter um relacionamento com uma de suas madrinhas, Mindy. Ross acompanha Carol e Susan até o ginecologista e vê o ultrassom de seu bebê.'),
-    ('07abe988-4f6f-40c6-a985-c470371ba4ee', 1, 1, 'A Hard Day''s Night', 'Meredith Grey acorda depois de uma noite para começar seu primeiro turno como interna de cirurgia. O primeiro turno para os novos internos cirúrgicos Meredith Grey (Ellen Pompeo), Cristina Yang (Sandra Oh), Izzie Stevens (Katherine Heigl), George O''Malley (T.R. Knight) e Alex Karev (Justin Chambers) é memorável. Enquanto trabalha, Meredith percebe que o cara de sua noite anterior é o Dr. Derek Shepherd. Derek pede a um interno que resolva o caso de um adolescente que tenha convulsões. Meredith e Christina percebem que ela tem um aneurisma que foi causado por uma queda. À luz dessa percepção, Derek escolhe Meredith para auxiliar em sua cirurgia, mesmo que Meredith tenha dito a Christina que ela podia.'),
-    ('07abe988-4f6f-40c6-a985-c470371ba4ee', 1, 2, 'The First Cut Is the Deepest', 'Meredith procura por colegas de quarto para compartilhar a casa de sua mãe, mas inicialmente não quer ficar com Izzie e George. Derek e Meredith atendem a uma vítima de estupro. Ao olhar para bebês recém-nascidos no hospital, Meredith e George descobrem uma doença com um bebê recém-nascido, mas uma enfermeira tenta rejeitar suas preocupações. Izzie Stevens ajuda uma mulher chinesa cuja filha precisa de cuidados médicos. Derek e Burke discutem sobre o cargo de chefe de cirurgia.');
+INSERT INTO
+    Episodio(
+        id_midia,
+        nro_temporada,
+        nro_episodio,
+        nome,
+        sinopse
+    )
+VALUES
+    (
+        '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef',
+        1,
+        1,
+        'The Pilot',
+        'Monica fala com os rapazes sobre Paul, o cara do vinho, e ela jura que não está saindo com ele. Ross está depressivo, porque sua ex-mulher acabou de se mudar para viver com sua amante. Então, Rachel invade o Central Perk vestida de noiva, porque acabou de deixar o noivo plantado no altar. Rachel diz a seu pai que ficará com Monica, para a surpresa da irmã de Ross.'
+    ),
+    (
+        '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef',
+        1,
+        2,
+        'The One with the Sonogram at the End',
+        'Ross descobre que sua ex-mulher, Carol, está grávida dele. Ela e Susan (sua amante) querem que Ross faça parte da vida do bebê. Monica recebe seus pais para jantar e sofre com a delicada tortura imposta por sua mãe. Rachel decide devolver a aliança a Barry (seu ex-noivo), mas quando ela chega a seu consultório, descobre que ele começou a ter um relacionamento com uma de suas madrinhas, Mindy. Ross acompanha Carol e Susan até o ginecologista e vê o ultrassom de seu bebê.'
+    ),
+    (
+        '07abe988-4f6f-40c6-a985-c470371ba4ee',
+        1,
+        1,
+        'A Hard Day''s Night',
+        'Meredith Grey acorda depois de uma noite para começar seu primeiro turno como interna de cirurgia. O primeiro turno para os novos internos cirúrgicos Meredith Grey (Ellen Pompeo), Cristina Yang (Sandra Oh), Izzie Stevens (Katherine Heigl), George O''Malley (T.R. Knight) e Alex Karev (Justin Chambers) é memorável. Enquanto trabalha, Meredith percebe que o cara de sua noite anterior é o Dr. Derek Shepherd. Derek pede a um interno que resolva o caso de um adolescente que tenha convulsões. Meredith e Christina percebem que ela tem um aneurisma que foi causado por uma queda. À luz dessa percepção, Derek escolhe Meredith para auxiliar em sua cirurgia, mesmo que Meredith tenha dito a Christina que ela podia.'
+    ),
+    (
+        '07abe988-4f6f-40c6-a985-c470371ba4ee',
+        1,
+        2,
+        'The First Cut Is the Deepest',
+        'Meredith procura por colegas de quarto para compartilhar a casa de sua mãe, mas inicialmente não quer ficar com Izzie e George. Derek e Meredith atendem a uma vítima de estupro. Ao olhar para bebês recém-nascidos no hospital, Meredith e George descobrem uma doença com um bebê recém-nascido, mas uma enfermeira tenta rejeitar suas preocupações. Izzie Stevens ajuda uma mulher chinesa cuja filha precisa de cuidados médicos. Derek e Burke discutem sobre o cargo de chefe de cirurgia.'
+    );
 
-INSERT INTO Franquia(nome, descricao) VALUES
+INSERT INTO
+    Franquia(nome, descricao)
+VALUES
     ('Avatar', 'Franquia de filmes Avatar'),
     ('Vingadores', 'Franquia de filmes Vingadores'),
-    ('The Legend of Zelda', 'Franquia de jogos The Legend of Zelda'),
-    ('Harry Potter', 'Franquia de livros e filmes Harry Potter');
+    (
+        'The Legend of Zelda',
+        'Franquia de jogos The Legend of Zelda'
+    ),
+    (
+        'Harry Potter',
+        'Franquia de livros e filmes Harry Potter'
+    );
 
-INSERT INTO Midia_Franquia(id_midia, nome) VALUES
+INSERT INTO
+    Midia_Franquia(id_midia, nome)
+VALUES
     ('58d2a1b9-ab9d-41f1-93e4-b80073bcef99', 'Avatar'),
     ('05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'Avatar'),
-    ('c53b10f2-e0f9-49c5-a130-a0ac594d8611', 'Vingadores'),
-    ('db5e85db-25f6-4d3b-a78c-2c64bc4812fc', 'The Legend of Zelda'),
-    ('92a8e48e-20c5-4269-addb-bc050a2711e6', 'Harry Potter'),
-    ('2cecfcb3-b35d-49ec-8220-c54f70c3f55a', 'Vingadores');
+    (
+        'c53b10f2-e0f9-49c5-a130-a0ac594d8611',
+        'Vingadores'
+    ),
+    (
+        'db5e85db-25f6-4d3b-a78c-2c64bc4812fc',
+        'The Legend of Zelda'
+    ),
+    (
+        '92a8e48e-20c5-4269-addb-bc050a2711e6',
+        'Harry Potter'
+    ),
+    (
+        '2cecfcb3-b35d-49ec-8220-c54f70c3f55a',
+        'Vingadores'
+    );
 
-INSERT INTO Interessa(email, id_midia) VALUES
-    ('a@b.com', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99'),
-    ('a@b.com', '92a8e48e-20c5-4269-addb-bc050a2711e6'),
-    ('c@d.com', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611'),
-    ('c@d.com', '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef'),
-    ('c@d.com', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99');
+INSERT INTO
+    Interessa(email, id_midia)
+VALUES
+    (
+        'a@b.com',
+        '58d2a1b9-ab9d-41f1-93e4-b80073bcef99'
+    ),
+    (
+        'a@b.com',
+        '92a8e48e-20c5-4269-addb-bc050a2711e6'
+    ),
+    (
+        'c@d.com',
+        'c53b10f2-e0f9-49c5-a130-a0ac594d8611'
+    ),
+    (
+        'c@d.com',
+        '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef'
+    ),
+    (
+        'c@d.com',
+        '58d2a1b9-ab9d-41f1-93e4-b80073bcef99'
+    );
 
-INSERT INTO Pessoa(nome, data_nasc, biografia, eh_ator, eh_diretor, eh_autor) VALUES
+INSERT INTO
+    Pessoa(
+        nome,
+        data_nasc,
+        biografia,
+        eh_ator,
+        eh_diretor,
+        eh_autor
+    )
+VALUES
     (
         'Robert Downey Jr.',
         '1965-04-04',
@@ -228,26 +386,140 @@ INSERT INTO Pessoa(nome, data_nasc, biografia, eh_ator, eh_diretor, eh_autor) VA
         false
     );
 
-INSERT INTO Participacao(id_participacao, id_midia, nome_pessoa, data_nasc_pessoa, natureza, descricao) VALUES
-    ('9387f72c-593b-48a3-be44-a33b1429a2b0', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611', 'Robert Downey Jr.', '1965-04-04', 'ATOR', 'Protagonista'),
-    ('402cc123-7463-4db9-a935-64877b81eeb0', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99', 'James Cameron', '1954-08-16', 'DIRETOR', NULL),
-    ('f6a92cf4-7a6e-4a8f-bb5b-8122860c6294', '05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'James Cameron', '1954-08-16', 'DIRETOR', NULL),
-    ('7f7ef2eb-5fe2-42a1-b2cc-5e0757f36c9f', '92a8e48e-20c5-4269-addb-bc050a2711e6', 'J. K. Rowling', '1965-07-31', 'AUTOR', NULL),
-    ('15247e42-1257-4237-8257-acdce17945a4', '92a8e48e-20c5-4269-addb-bc050a2711e6', 'Ícaro Silva', '1987-03-19', 'ATOR', 'Narrador'),
-    ('2fb7b6cb-37a9-44e8-9703-2d9e2c3cc196', '95dfbb45-1c83-44a9-9593-e0b8c85a282a', 'Robert Downey Jr.', '1965-04-04', 'ATOR', 'Protagonista'),
-    ('dd25d5eb-df59-4f89-a59e-0892f4231ffe', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99', 'Sam Worthington', '1976-08-02', 'ATOR', 'Protagonista'),
-    ('3435bd83-8ea5-406c-94d6-13b062264355', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99', 'Zoë Saldaña', '1978-06-19', 'ATOR', 'Protagonista'),
-    ('aa0ac18d-e2e5-418f-a03f-81fc7f3e736c', '05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'Sam Worthington', '1976-08-02', 'ATOR', 'Protagonista'),
-    ('6f435d96-a2eb-4a22-b785-984b503dc271', '05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'Zoë Saldaña', '1978-06-19', 'ATOR', 'Protagonista'),
-    ('49d5b8b7-c09d-4145-b6ee-e26c13b8da8c', '2cecfcb3-b35d-49ec-8220-c54f70c3f55a', 'Robert Downey Jr.', '1965-04-04', 'ATOR', 'Protagonista');
+INSERT INTO
+    Participacao(
+        id_participacao,
+        id_midia,
+        nome_pessoa,
+        data_nasc_pessoa,
+        natureza,
+        descricao
+    )
+VALUES
+    (
+        '9387f72c-593b-48a3-be44-a33b1429a2b0',
+        'c53b10f2-e0f9-49c5-a130-a0ac594d8611',
+        'Robert Downey Jr.',
+        '1965-04-04',
+        'ATOR',
+        'Protagonista'
+    ),
+    (
+        '402cc123-7463-4db9-a935-64877b81eeb0',
+        '58d2a1b9-ab9d-41f1-93e4-b80073bcef99',
+        'James Cameron',
+        '1954-08-16',
+        'DIRETOR',
+        NULL
+    ),
+    (
+        'f6a92cf4-7a6e-4a8f-bb5b-8122860c6294',
+        '05b4c947-7856-4a4c-ae85-4a1436b2cc31',
+        'James Cameron',
+        '1954-08-16',
+        'DIRETOR',
+        NULL
+    ),
+    (
+        '7f7ef2eb-5fe2-42a1-b2cc-5e0757f36c9f',
+        '92a8e48e-20c5-4269-addb-bc050a2711e6',
+        'J. K. Rowling',
+        '1965-07-31',
+        'AUTOR',
+        NULL
+    ),
+    (
+        '15247e42-1257-4237-8257-acdce17945a4',
+        '92a8e48e-20c5-4269-addb-bc050a2711e6',
+        'Ícaro Silva',
+        '1987-03-19',
+        'ATOR',
+        'Narrador'
+    ),
+    (
+        '2fb7b6cb-37a9-44e8-9703-2d9e2c3cc196',
+        '95dfbb45-1c83-44a9-9593-e0b8c85a282a',
+        'Robert Downey Jr.',
+        '1965-04-04',
+        'ATOR',
+        'Protagonista'
+    ),
+    (
+        'dd25d5eb-df59-4f89-a59e-0892f4231ffe',
+        '58d2a1b9-ab9d-41f1-93e4-b80073bcef99',
+        'Sam Worthington',
+        '1976-08-02',
+        'ATOR',
+        'Protagonista'
+    ),
+    (
+        '3435bd83-8ea5-406c-94d6-13b062264355',
+        '58d2a1b9-ab9d-41f1-93e4-b80073bcef99',
+        'Zoë Saldaña',
+        '1978-06-19',
+        'ATOR',
+        'Protagonista'
+    ),
+    (
+        'aa0ac18d-e2e5-418f-a03f-81fc7f3e736c',
+        '05b4c947-7856-4a4c-ae85-4a1436b2cc31',
+        'Sam Worthington',
+        '1976-08-02',
+        'ATOR',
+        'Protagonista'
+    ),
+    (
+        '6f435d96-a2eb-4a22-b785-984b503dc271',
+        '05b4c947-7856-4a4c-ae85-4a1436b2cc31',
+        'Zoë Saldaña',
+        '1978-06-19',
+        'ATOR',
+        'Protagonista'
+    ),
+    (
+        '49d5b8b7-c09d-4145-b6ee-e26c13b8da8c',
+        '2cecfcb3-b35d-49ec-8220-c54f70c3f55a',
+        'Robert Downey Jr.',
+        '1965-04-04',
+        'ATOR',
+        'Protagonista'
+    );
 
-INSERT INTO Indicacao(id_participacao, indicacao, premiado) VALUES
-    ('9387f72c-593b-48a3-be44-a33b1429a2b0', 'Oscar de melhor ator em filme de ação', false),
-    ('402cc123-7463-4db9-a935-64877b81eeb0', 'Oscar de melhor direção', true),
-    ('dd25d5eb-df59-4f89-a59e-0892f4231ffe', 'Oscar de melhor ator em filme de ficção científica', true),
-    ('3435bd83-8ea5-406c-94d6-13b062264355', 'Oscar de melhor atriz em filme de ficção científica', false);
+INSERT INTO
+    Indicacao(id_participacao, indicacao, premiado)
+VALUES
+    (
+        '9387f72c-593b-48a3-be44-a33b1429a2b0',
+        'Oscar de melhor ator em filme de ação',
+        false
+    ),
+    (
+        '402cc123-7463-4db9-a935-64877b81eeb0',
+        'Oscar de melhor direção',
+        true
+    ),
+    (
+        'dd25d5eb-df59-4f89-a59e-0892f4231ffe',
+        'Oscar de melhor ator em filme de ficção científica',
+        true
+    ),
+    (
+        '3435bd83-8ea5-406c-94d6-13b062264355',
+        'Oscar de melhor atriz em filme de ficção científica',
+        false
+    );
 
-INSERT INTO Organizacao(nome, data_fundacao, descricao, eh_produtora, eh_distribuidora, eh_gravadora, eh_desenvolvedora) VALUES
+INSERT INTO
+    Organizacao(
+        nome,
+        data_fundacao,
+        descricao,
+        eh_produtora,
+        eh_distribuidora,
+        eh_gravadora,
+        eh_desenvolvedora
+    )
+VALUES
     (
         'Marvel Studios',
         '1993-12-07',
@@ -285,21 +557,87 @@ INSERT INTO Organizacao(nome, data_fundacao, descricao, eh_produtora, eh_distrib
         false
     );
 
-INSERT INTO Producao(id_midia, nome_organizacao, data_fundacao_organizacao) VALUES
-    ('c53b10f2-e0f9-49c5-a130-a0ac594d8611', 'Marvel Studios', '1993-12-07'),
-    ('92a8e48e-20c5-4269-addb-bc050a2711e6', 'Storytel', '2005-01-01');
+INSERT INTO
+    Producao(
+        id_midia,
+        nome_organizacao,
+        data_fundacao_organizacao
+    )
+VALUES
+    (
+        'c53b10f2-e0f9-49c5-a130-a0ac594d8611',
+        'Marvel Studios',
+        '1993-12-07'
+    ),
+    (
+        '92a8e48e-20c5-4269-addb-bc050a2711e6',
+        'Storytel',
+        '2005-01-01'
+    );
 
-INSERT INTO Avaliacao(email, id_midia, nota, conteudo) VALUES
-    ('a@b.com', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99', 5, 'Filme muito legal! Ótimos efeitos especiais.'),
-    ('c@d.com', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611', 1, 'Horrível.'),
-    ('a@b.com', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611', 5, NULL),
-    ('b@c.com', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611', 4, NULL),
-    ('a@b.com', '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef', 5, NULL),
-    ('a@b.com', '2cecfcb3-b35d-49ec-8220-c54f70c3f55a', 5, NULL),
-    ('b@c.com', '2cecfcb3-b35d-49ec-8220-c54f70c3f55a', 5, NULL),
-    ('c@d.com', '2cecfcb3-b35d-49ec-8220-c54f70c3f55a', 5, NULL);
+INSERT INTO
+    Avaliacao(email, id_midia, nota, conteudo)
+VALUES
+    (
+        'a@b.com',
+        '58d2a1b9-ab9d-41f1-93e4-b80073bcef99',
+        5,
+        'Filme muito legal! Ótimos efeitos especiais.'
+    ),
+    (
+        'c@d.com',
+        'c53b10f2-e0f9-49c5-a130-a0ac594d8611',
+        1,
+        'Horrível.'
+    ),
+    (
+        'a@b.com',
+        'c53b10f2-e0f9-49c5-a130-a0ac594d8611',
+        5,
+        NULL
+    ),
+    (
+        'b@c.com',
+        'c53b10f2-e0f9-49c5-a130-a0ac594d8611',
+        4,
+        NULL
+    ),
+    (
+        'a@b.com',
+        '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef',
+        5,
+        NULL
+    ),
+    (
+        'a@b.com',
+        '2cecfcb3-b35d-49ec-8220-c54f70c3f55a',
+        5,
+        NULL
+    ),
+    (
+        'b@c.com',
+        '2cecfcb3-b35d-49ec-8220-c54f70c3f55a',
+        5,
+        NULL
+    ),
+    (
+        'c@d.com',
+        '2cecfcb3-b35d-49ec-8220-c54f70c3f55a',
+        5,
+        NULL
+    );
 
-INSERT INTO Mod_Avaliacao(email, email_avaliador, id_midia, data, acao, motivo, penalidade) VALUES
+INSERT INTO
+    Mod_Avaliacao(
+        email,
+        email_avaliador,
+        id_midia,
+        data,
+        acao,
+        motivo,
+        penalidade
+    )
+VALUES
     (
         'mod@mod.me',
         'a@b.com',
@@ -319,7 +657,9 @@ INSERT INTO Mod_Avaliacao(email, email_avaliador, id_midia, data, acao, motivo, 
         3
     );
 
-INSERT INTO Edicao(email, id_midia, data_edicao, conteudo) VALUES
+INSERT INTO
+    Edicao(email, id_midia, data_edicao, conteudo)
+VALUES
     (
         'a@b.com',
         '58d2a1b9-ab9d-41f1-93e4-b80073bcef99',
@@ -339,7 +679,18 @@ INSERT INTO Edicao(email, id_midia, data_edicao, conteudo) VALUES
         'Journey through the land of Hyrule in the Nintendo 64''s first installment in the Zelda universe, Legend of Zelda: The Ocarina of Time.'
     );
 
-INSERT INTO Mod_Edicao(email, email_editor, id_midia, data_edicao, data, acao, motivo, penalidade) VALUES 
+INSERT INTO
+    Mod_Edicao(
+        email,
+        email_editor,
+        id_midia,
+        data_edicao,
+        data,
+        acao,
+        motivo,
+        penalidade
+    )
+VALUES
     (
         'mod2@mod.me',
         'a@b.com',
@@ -361,16 +712,63 @@ INSERT INTO Mod_Edicao(email, email_editor, id_midia, data_edicao, data, acao, m
         0
     );
 
-INSERT INTO Cadastro(email, id_midia, data_cadastro, aprovado) VALUES
-    ('a@b.com', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99', '2022-05-01', true),
-    ('a@b.com', '05b4c947-7856-4a4c-ae85-4a1436b2cc31', '2022-06-08', false),
-    ('b@c.com', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611', '2022-06-02', true),
-    ('b@c.com', '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef', '2022-05-04', true),
-    ('b@c.com', '07abe988-4f6f-40c6-a985-c470371ba4ee', '2022-05-06', true),
-    ('b@c.com', 'db5e85db-25f6-4d3b-a78c-2c64bc4812fc', '2022-05-03', true),
-    ('b@c.com', '92a8e48e-20c5-4269-addb-bc050a2711e6', '2022-05-01', true);
+INSERT INTO
+    Cadastro(email, id_midia, data_cadastro, aprovado)
+VALUES
+    (
+        'a@b.com',
+        '58d2a1b9-ab9d-41f1-93e4-b80073bcef99',
+        '2022-05-01',
+        true
+    ),
+    (
+        'a@b.com',
+        '05b4c947-7856-4a4c-ae85-4a1436b2cc31',
+        '2022-06-08',
+        false
+    ),
+    (
+        'b@c.com',
+        'c53b10f2-e0f9-49c5-a130-a0ac594d8611',
+        '2022-06-02',
+        true
+    ),
+    (
+        'b@c.com',
+        '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef',
+        '2022-05-04',
+        true
+    ),
+    (
+        'b@c.com',
+        '07abe988-4f6f-40c6-a985-c470371ba4ee',
+        '2022-05-06',
+        true
+    ),
+    (
+        'b@c.com',
+        'db5e85db-25f6-4d3b-a78c-2c64bc4812fc',
+        '2022-05-03',
+        true
+    ),
+    (
+        'b@c.com',
+        '92a8e48e-20c5-4269-addb-bc050a2711e6',
+        '2022-05-01',
+        true
+    );
 
-INSERT INTO Mod_Cadastro(email, email_cadastrante, id_midia, data, acao, motivo, penalidade) VALUES
+INSERT INTO
+    Mod_Cadastro(
+        email,
+        email_cadastrante,
+        id_midia,
+        data,
+        acao,
+        motivo,
+        penalidade
+    )
+VALUES
     (
         'mod@mod.me',
         'a@b.com',
@@ -390,7 +788,16 @@ INSERT INTO Mod_Cadastro(email, email_cadastrante, id_midia, data, acao, motivo,
         0
     );
 
-INSERT INTO Comentario(id_comentario, email, id_midia, data, conteudo, id_comentario_respondido) VALUES
+INSERT INTO
+    Comentario(
+        id_comentario,
+        email,
+        id_midia,
+        data,
+        conteudo,
+        id_comentario_respondido
+    )
+VALUES
     (
         'f73782e2-96c7-4a51-abb2-c046b8a3e9b7',
         'c@d.com',
@@ -432,12 +839,35 @@ INSERT INTO Comentario(id_comentario, email, id_midia, data, conteudo, id_coment
         NULL
     );
 
-INSERT INTO Reacao(email_reagente, id_comentario, reacao) VALUES
-    ('c@d.com', 'd13a1650-de5d-4a44-b3af-1f6b447c5d8c', 's'),
-    ('a@b.com', 'bc07e6da-8c28-4bcf-9a96-e3466ab51536', 'r'),
-    ('c@d.com', 'bc07e6da-8c28-4bcf-9a96-e3466ab51536', 'r');
+INSERT INTO
+    Reacao(email_reagente, id_comentario, reacao)
+VALUES
+    (
+        'c@d.com',
+        'd13a1650-de5d-4a44-b3af-1f6b447c5d8c',
+        's'
+    ),
+    (
+        'a@b.com',
+        'bc07e6da-8c28-4bcf-9a96-e3466ab51536',
+        'r'
+    ),
+    (
+        'c@d.com',
+        'bc07e6da-8c28-4bcf-9a96-e3466ab51536',
+        'r'
+    );
 
-INSERT INTO Mod_Comentario(email, id_comentario, data, acao, motivo, penalidade) VALUES
+INSERT INTO
+    Mod_Comentario(
+        email,
+        id_comentario,
+        data,
+        acao,
+        motivo,
+        penalidade
+    )
+VALUES
     (
         'mod@mod.me',
         'b694ab94-0bb6-48ce-8ddf-df2577003156',

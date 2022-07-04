@@ -3,7 +3,7 @@ CREATE TABLE Usuario (
   nome VARCHAR(20) NOT NULL UNIQUE,
   -- usernames com no máximo 20 caracteres
   senha VARCHAR(255) NOT NULL,
-  -- Verificar qual hash sera usado
+  -- O ideal em um cenário real seria usar um hash para a senha (E.g. Bcrypt)
   tipo CHAR(9) DEFAULT 'USUARIO' CHECK (UPPER(tipo) IN ('USUARIO', 'MODERADOR')),
   CONSTRAINT PK_Usuario PRIMARY KEY (email)
 );
@@ -15,8 +15,7 @@ CREATE TABLE Promocao (
     UPPER(status) IN ('EM ANDAMENTO', 'INDEFERIDA', 'APROVADA')
   ),
   CONSTRAINT PK_Promocao PRIMARY KEY (email_usuario, data),
-  CONSTRAINT FK_Promocao_Usuario FOREIGN KEY (email_usuario) REFERENCES Usuario(email) ON DELETE CASCADE ON UPDATE CASCADE
-  -- Nao faz sentido promoçao ser bloqueante para exclusao ou alteracao de usuario. Tambem nao faz sentido exitir promoçao para um usuario que nao existe ou que foi alterado. Por esses motivos CASCADE foi utilizado
+  CONSTRAINT FK_Promocao_Usuario FOREIGN KEY (email_usuario) REFERENCES Usuario(email) ON DELETE CASCADE ON UPDATE CASCADE -- Nao faz sentido promoçao ser bloqueante para exclusao ou alteracao de usuario. Tambem nao faz sentido exitir promoçao para um usuario que nao existe ou que foi alterado. Por esses motivos CASCADE foi utilizado
 );
 
 CREATE TABLE Voto (
@@ -26,8 +25,7 @@ CREATE TABLE Voto (
   voto BOOLEAN NOT NULL,
   CONSTRAINT PK_Voto PRIMARY KEY (email_usuario, data, email_moderador),
   CONSTRAINT FK_Voto_Promocao FOREIGN KEY (email_usuario, data) REFERENCES Promocao(email_usuario, data) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT FK_Voto_Moderador FOREIGN KEY (email_moderador) REFERENCES Usuario(email) ON DELETE RESTRICT ON UPDATE CASCADE
-  -- Como eh necessario manter historico de votos, pois são acoes de grande seriedade, nao deve-se permitir a exclusao da promoçao que ja possui votos ou do moderador que votou. Por esses motivos RESTRICT foi utilizado
+  CONSTRAINT FK_Voto_Moderador FOREIGN KEY (email_moderador) REFERENCES Usuario(email) ON DELETE RESTRICT ON UPDATE CASCADE -- Como eh necessario manter historico de votos, pois são acoes de grande seriedade, nao deve-se permitir a exclusao da promoçao que ja possui votos ou do moderador que votou. Por esses motivos RESTRICT foi utilizado
 );
 
 CREATE TABLE Midia (
@@ -59,8 +57,7 @@ CREATE TABLE Midia (
       UPPER(tipo) = 'SERIE'
       AND UPPER(status) = 'EM EXIBICAO'
     )
-  )
-  -- CONSTRAINT CK_Midia_Duracao CHECK (duracao IS NULL OR UPPER(tipo) IN ('AUDIOBOOK', 'FILME')),
+  ) -- CONSTRAINT CK_Midia_Duracao CHECK (duracao IS NULL OR UPPER(tipo) IN ('AUDIOBOOK', 'FILME')),
   -- CONSTRAINT CK_Midia_Plataforma CHECK (plataforma IS NULL OR UPPER(tipo) == 'JOGO'),
   -- CONSTRAINT CK_Midia_Nro_Cap CHECK (nro_capitulos IS NULL OR UPPER(tipo) == 'AUDIOBOOK'),
   -- Caso fosse especializacao com totalidade, tais CHEK's fariam sentido
@@ -85,8 +82,7 @@ CREATE TABLE Temporada (
   nome VARCHAR(255),
   sinopse TEXT,
   CONSTRAINT PK_Temporada PRIMARY KEY (id_midia, nro_temporada),
-  CONSTRAINT FK_Temporada_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE
-  -- Não faz sentido existir temporada para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
+  CONSTRAINT FK_Temporada_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE -- Não faz sentido existir temporada para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
 );
 
 CREATE TABLE Episodio (
@@ -97,8 +93,7 @@ CREATE TABLE Episodio (
   sinopse TEXT,
   CONSTRAINT PK_Episodio PRIMARY KEY (id_midia, nro_temporada, nro_episodio),
   CONSTRAINT FK_Episodio_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT FK_Episodio_Temporada FOREIGN KEY (id_midia, nro_temporada) REFERENCES Temporada(id_midia, nro_temporada) ON DELETE CASCADE ON UPDATE CASCADE
-  -- Não faz sentido existir episodio para midia ou temporada que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
+  CONSTRAINT FK_Episodio_Temporada FOREIGN KEY (id_midia, nro_temporada) REFERENCES Temporada(id_midia, nro_temporada) ON DELETE CASCADE ON UPDATE CASCADE -- Não faz sentido existir episodio para midia ou temporada que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
 );
 
 CREATE TABLE Franquia (
@@ -120,8 +115,7 @@ CREATE TABLE Interessa (
   id_midia UUID,
   CONSTRAINT PK_Interessa PRIMARY KEY (email, id_midia),
   CONSTRAINT FK_Interessa_Usuario FOREIGN KEY (email) REFERENCES Usuario(email) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT FK_Interessa_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE
-  -- Nao faz sentido existir interesse para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
+  CONSTRAINT FK_Interessa_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE -- Nao faz sentido existir interesse para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
   -- Não faz sentido existir interesse de usuario que nao existe ou que foi alterado. Por esses motivos CASCADE foi utilizado
 );
 
@@ -150,10 +144,14 @@ CREATE TABLE Participacao (
   ),
   descricao TEXT,
   CONSTRAINT PK_Participacao PRIMARY KEY (id_participacao),
-  CONSTRAINT UQ_Participacao UNIQUE (id_midia, nome_pessoa, data_nasc_pessoa, natureza),
+  CONSTRAINT UQ_Participacao UNIQUE (
+    id_midia,
+    nome_pessoa,
+    data_nasc_pessoa,
+    natureza
+  ),
   CONSTRAINT FK_Participacao_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT FK_Participacao_Pessoa FOREIGN KEY (nome_pessoa, data_nasc_pessoa) REFERENCES Pessoa(nome, data_nasc) ON DELETE CASCADE ON UPDATE CASCADE
-  -- Não faz sentido existir participacao para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
+  CONSTRAINT FK_Participacao_Pessoa FOREIGN KEY (nome_pessoa, data_nasc_pessoa) REFERENCES Pessoa(nome, data_nasc) ON DELETE CASCADE ON UPDATE CASCADE -- Não faz sentido existir participacao para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
   -- Não faz sentido existir participacao de pessoa que nao existe ou que foi alterado. Por esses motivos CASCADE foi utilizado
 );
 
@@ -162,8 +160,7 @@ CREATE TABLE Indicacao (
   indicacao VARCHAR(255),
   premiado BOOLEAN DEFAULT FALSE,
   CONSTRAINT PK_Indicacao PRIMARY KEY (id_participacao, indicacao),
-  CONSTRAINT FK_Indicacao_Participacao FOREIGN KEY (id_participacao) REFERENCES Participacao(id_participacao) ON DELETE CASCADE ON UPDATE CASCADE
-  -- Não faz sentido existir indicacao para participacao que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
+  CONSTRAINT FK_Indicacao_Participacao FOREIGN KEY (id_participacao) REFERENCES Participacao(id_participacao) ON DELETE CASCADE ON UPDATE CASCADE -- Não faz sentido existir indicacao para participacao que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
 );
 
 CREATE table Organizacao (
@@ -193,8 +190,7 @@ CREATE TABLE Producao (
     data_fundacao_organizacao
   ),
   CONSTRAINT FK_Producao_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT FK_Producao_Organizacao FOREIGN KEY (nome_organizacao, data_fundacao_organizacao) REFERENCES Organizacao(nome, data_fundacao) ON DELETE CASCADE ON UPDATE CASCADE
-  -- Não faz sentido existir producao para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
+  CONSTRAINT FK_Producao_Organizacao FOREIGN KEY (nome_organizacao, data_fundacao_organizacao) REFERENCES Organizacao(nome, data_fundacao) ON DELETE CASCADE ON UPDATE CASCADE -- Não faz sentido existir producao para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
   -- Não faz sentido existir producao de organizacao que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
 );
 
@@ -208,8 +204,7 @@ Create TABLE Avaliacao (
   conteudo TEXT,
   CONSTRAINT PK_Avaliacao PRIMARY KEY (email, id_midia),
   CONSTRAINT FK_Avaliacao_Usuario FOREIGN KEY (email) REFERENCES Usuario(email) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT FK_Avaliacao_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE
-  -- Nao faz sentido existir avaliacao para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
+  CONSTRAINT FK_Avaliacao_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE -- Nao faz sentido existir avaliacao para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
   -- Nao faz sentido existir avaliacao de usuario que nao existe ou que foi alterado. Por esses motivos CASCADE foi utilizado
 );
 
@@ -226,8 +221,7 @@ CREATE TABLE Mod_Avaliacao (
   ),
   CONSTRAINT PK_Mod_Avaliacao PRIMARY KEY (email, email_avaliador, id_midia, data),
   CONSTRAINT FK_Mod_Avaliacao_Usuario FOREIGN KEY (email) REFERENCES Usuario(email) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT FK_Mod_Avaliacao_Avaliacao FOREIGN KEY (email_avaliador, id_midia) REFERENCES Avaliacao(email, id_midia) ON DELETE RESTRICT ON UPDATE CASCADE
-  -- Como eh necessario manter historico de moderaçoes, pois são acoes de grande seriedade, nao deve-se permitir a exclusao do usuario moderador ou da avaliação moderada enquanto essa moderação existir, por esse motivo RESTRICT foi utilizado
+  CONSTRAINT FK_Mod_Avaliacao_Avaliacao FOREIGN KEY (email_avaliador, id_midia) REFERENCES Avaliacao(email, id_midia) ON DELETE RESTRICT ON UPDATE CASCADE -- Como eh necessario manter historico de moderaçoes, pois são acoes de grande seriedade, nao deve-se permitir a exclusao do usuario moderador ou da avaliação moderada enquanto essa moderação existir, por esse motivo RESTRICT foi utilizado
 );
 
 CREATE TABLE Edicao (
@@ -238,8 +232,7 @@ CREATE TABLE Edicao (
   -- Conteudo da edicao é basicamente um diff
   CONSTRAINT PK_Edicao PRIMARY KEY (email, id_midia, data_edicao),
   CONSTRAINT FK_Edicao_Usuario FOREIGN KEY (email) REFERENCES Usuario(email) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT FK_Edicao_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE
-  -- Nao faz sentido existir edicao para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
+  CONSTRAINT FK_Edicao_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE -- Nao faz sentido existir edicao para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
   -- Nao faz sentido existir edicao de usuario que nao existe ou que foi alterado. Por esses motivos CASCADE foi utilizado
 );
 
@@ -257,8 +250,7 @@ CREATE TABLE Mod_Edicao (
   ),
   CONSTRAINT PK_Mod_Edicao PRIMARY KEY (email, email_editor, id_midia, data_edicao, data),
   CONSTRAINT FK_Mod_Edicao_Usuario FOREIGN KEY (email) REFERENCES Usuario(email) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT FK_Mod_Edicao_Edicao FOREIGN KEY (email_editor, id_midia, data_edicao) REFERENCES Edicao(email, id_midia, data_edicao) ON DELETE RESTRICT ON UPDATE CASCADE
-  -- Como eh necessario manter historico de moderaçoes, pois são acoes de grande seriedade, nao deve-se permitir a exclusao do usuario moderador ou da edicao moderada enquanto essa moderação existir, por esse motivo RESTRICT foi utilizado
+  CONSTRAINT FK_Mod_Edicao_Edicao FOREIGN KEY (email_editor, id_midia, data_edicao) REFERENCES Edicao(email, id_midia, data_edicao) ON DELETE RESTRICT ON UPDATE CASCADE -- Como eh necessario manter historico de moderaçoes, pois são acoes de grande seriedade, nao deve-se permitir a exclusao do usuario moderador ou da edicao moderada enquanto essa moderação existir, por esse motivo RESTRICT foi utilizado
 );
 
 CREATE TABLE Cadastro (
@@ -268,8 +260,7 @@ CREATE TABLE Cadastro (
   aprovado BOOLEAN DEFAULT FALSE,
   CONSTRAINT PK_Cadastro PRIMARY KEY (email, id_midia),
   CONSTRAINT FK_Cadastro_Usuario FOREIGN KEY (email) REFERENCES Usuario(email) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT FK_Cadastro_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE
-  -- Nao faz sentido existir cadastro para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
+  CONSTRAINT FK_Cadastro_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE -- Nao faz sentido existir cadastro para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
   -- Nao faz sentido existir cadastro de usuario que nao existe ou que foi alterado. Por esses motivos CASCADE foi utilizado
 );
 
@@ -286,8 +277,7 @@ CREATE TABLE Mod_Cadastro (
   ),
   CONSTRAINT PK_Mod_Cadastro PRIMARY KEY (email, email_cadastrante, id_midia, data),
   CONSTRAINT FK_Mod_Cadastro_Usuario FOREIGN KEY (email) REFERENCES Usuario(email) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT FK_Mod_Cadastro_Cadastro FOREIGN KEY (email_cadastrante, id_midia) REFERENCES Cadastro(email, id_midia) ON DELETE RESTRICT ON UPDATE CASCADE
-  -- Como eh necessario manter historico de moderaçoes, pois são acoes de grande seriedade, nao deve-se permitir a exclusao do usuario moderador ou do cadastro moderado enquanto essa moderação existir, por esse motivo RESTRICT foi utilizado
+  CONSTRAINT FK_Mod_Cadastro_Cadastro FOREIGN KEY (email_cadastrante, id_midia) REFERENCES Cadastro(email, id_midia) ON DELETE RESTRICT ON UPDATE CASCADE -- Como eh necessario manter historico de moderaçoes, pois são acoes de grande seriedade, nao deve-se permitir a exclusao do usuario moderador ou do cadastro moderado enquanto essa moderação existir, por esse motivo RESTRICT foi utilizado
 );
 
 CREATE TABLE Comentario (
@@ -301,8 +291,7 @@ CREATE TABLE Comentario (
   CONSTRAINT UQ_Comentario UNIQUE (email, id_midia, data),
   CONSTRAINT FK_Comentario_Usuario FOREIGN KEY (email) REFERENCES Usuario(email) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FK_Comentario_Midia FOREIGN KEY (id_midia) REFERENCES Midia(id_midia) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT FK_Comentario_Comentario FOREIGN KEY (id_comentario_respondido) REFERENCES Comentario(id_comentario) ON DELETE CASCADE ON UPDATE CASCADE
-  -- Nao faz sentido existir comentario para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
+  CONSTRAINT FK_Comentario_Comentario FOREIGN KEY (id_comentario_respondido) REFERENCES Comentario(id_comentario) ON DELETE CASCADE ON UPDATE CASCADE -- Nao faz sentido existir comentario para midia que nao existe ou que foi alterada. Por esses motivos CASCADE foi utilizado
   -- Nao faz sentido existir comentario de usuario que nao existe ou que foi alterado. Por esses motivos CASCADE foi utilizado
   -- Nao faz sentido existir comentario resposta de comentario que nao existe ou que foi alterado. Por esses motivos CASCADE foi utilizado
 );
@@ -314,8 +303,7 @@ CREATE TABLE Reacao (
   -- Reação é um emoji
   CONSTRAINT PK_Reacao PRIMARY KEY (email_reagente, id_comentario),
   CONSTRAINT FK_Reacao_Usuario FOREIGN KEY (email_reagente) REFERENCES Usuario(email) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT FK_Reacao_Comentario FOREIGN KEY (id_comentario) REFERENCES Comentario(id_comentario) ON DELETE CASCADE ON UPDATE CASCADE
-  -- Nao faz sentido existir reacao de usuario que nao existe ou que foi alterado. Por esses motivos CASCADE foi utilizado
+  CONSTRAINT FK_Reacao_Comentario FOREIGN KEY (id_comentario) REFERENCES Comentario(id_comentario) ON DELETE CASCADE ON UPDATE CASCADE -- Nao faz sentido existir reacao de usuario que nao existe ou que foi alterado. Por esses motivos CASCADE foi utilizado
   -- Nao faz sentido existir reacao de comentario que nao existe ou que foi alterado. Por esses motivos CASCADE foi utilizado
 );
 
@@ -331,6 +319,5 @@ CREATE TABLE Mod_Comentario (
   ),
   CONSTRAINT PK_Mod_Comentario PRIMARY KEY (email, id_comentario, data),
   CONSTRAINT FK_Mod_Comentario_Usuario FOREIGN KEY (email) REFERENCES Usuario(email) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT FK_Mod_Comentario_Comentario FOREIGN KEY (id_comentario) REFERENCES Comentario(id_comentario) ON DELETE RESTRICT ON UPDATE CASCADE
-  -- Como eh necessario manter historico de moderaçoes, pois são acoes de grande seriedade, nao deve-se permitir a exclusao do usuario moderador ou do comentario moderado enquanto essa moderação existir, por esse motivo RESTRICT foi utilizado
+  CONSTRAINT FK_Mod_Comentario_Comentario FOREIGN KEY (id_comentario) REFERENCES Comentario(id_comentario) ON DELETE RESTRICT ON UPDATE CASCADE -- Como eh necessario manter historico de moderaçoes, pois são acoes de grande seriedade, nao deve-se permitir a exclusao do usuario moderador ou do comentario moderado enquanto essa moderação existir, por esse motivo RESTRICT foi utilizado
 );
