@@ -42,13 +42,24 @@ INSERT INTO Midia(id_midia, titulo, data_lancamento, tipo, sinopse, status, nro_
     ),
     (
         'c53b10f2-e0f9-49c5-a130-a0ac594d8611',
-        'Avengers: Endgame',
+        'Vingadores: Ultimato',
         '2019-04-25',
         'FILME',
         'Após os eventos devastadores de Vingadores: Guerra Infinita , o universo está em ruínas, e com a ajuda de aliados os Vingadores se reúnem para desfazer as ações de Thanos e restaurar a ordem...',
         'FINALIZADA',
         NULL,
         '2h 21m',
+        NULL
+    ),
+    (
+        '2cecfcb3-b35d-49ec-8220-c54f70c3f55a',
+        'Vingadores: Guerra Infinita',
+        '2018-04-23',
+        'FILME',
+        'Homem de Ferro, Thor, Hulk e os Vingadores se unem para combater seu inimigo mais poderoso, o maligno Thanos. Em uma missão para coletar todas as seis pedras infinitas, Thanos planeja usá-las para infligir sua vontade maléfica sobre a realidade.',
+        'FINALIZADA',
+        NULL,
+        '2h 29m',
         NULL
     ),
     (
@@ -157,7 +168,8 @@ INSERT INTO Midia_Franquia(id_midia, nome) VALUES
     ('05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'Avatar'),
     ('c53b10f2-e0f9-49c5-a130-a0ac594d8611', 'Vingadores'),
     ('db5e85db-25f6-4d3b-a78c-2c64bc4812fc', 'The Legend of Zelda'),
-    ('92a8e48e-20c5-4269-addb-bc050a2711e6', 'Harry Potter');
+    ('92a8e48e-20c5-4269-addb-bc050a2711e6', 'Harry Potter'),
+    ('2cecfcb3-b35d-49ec-8220-c54f70c3f55a', 'Vingadores');
 
 INSERT INTO Interessa(email, id_midia) VALUES
     ('a@b.com', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99'),
@@ -226,7 +238,8 @@ INSERT INTO Participacao(id_participacao, id_midia, nome_pessoa, data_nasc_pesso
     ('dd25d5eb-df59-4f89-a59e-0892f4231ffe', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99', 'Sam Worthington', '1976-08-02', 'ATOR', 'Protagonista'),
     ('3435bd83-8ea5-406c-94d6-13b062264355', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99', 'Zoë Saldaña', '1978-06-19', 'ATOR', 'Protagonista'),
     ('aa0ac18d-e2e5-418f-a03f-81fc7f3e736c', '05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'Sam Worthington', '1976-08-02', 'ATOR', 'Protagonista'),
-    ('6f435d96-a2eb-4a22-b785-984b503dc271', '05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'Zoë Saldaña', '1978-06-19', 'ATOR', 'Protagonista');
+    ('6f435d96-a2eb-4a22-b785-984b503dc271', '05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'Zoë Saldaña', '1978-06-19', 'ATOR', 'Protagonista'),
+    ('49d5b8b7-c09d-4145-b6ee-e26c13b8da8c', '2cecfcb3-b35d-49ec-8220-c54f70c3f55a', 'Robert Downey Jr.', '1965-04-04', 'ATOR', 'Protagonista');
 
 INSERT INTO Indicacao(id_participacao, indicacao, premiado) VALUES
     ('9387f72c-593b-48a3-be44-a33b1429a2b0', 'Oscar de melhor ator em filme de ação', false),
@@ -281,7 +294,10 @@ INSERT INTO Avaliacao(email, id_midia, nota, conteudo) VALUES
     ('c@d.com', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611', 1, 'Horrível.'),
     ('a@b.com', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611', 5, NULL),
     ('b@c.com', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611', 4, NULL),
-    ('a@b.com', '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef', 5, NULL);
+    ('a@b.com', '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef', 5, NULL),
+    ('a@b.com', '2cecfcb3-b35d-49ec-8220-c54f70c3f55a', 5, NULL),
+    ('b@c.com', '2cecfcb3-b35d-49ec-8220-c54f70c3f55a', 5, NULL),
+    ('c@d.com', '2cecfcb3-b35d-49ec-8220-c54f70c3f55a', 5, NULL);
 
 INSERT INTO Mod_Avaliacao(email, email_avaliador, id_midia, data, acao, motivo, penalidade) VALUES
     (
