@@ -17,7 +17,7 @@ INSERT INTO Voto(email_usuario, data, email_moderador, voto) VALUES
     ('b@c.com', '2022-05-10', 'mod@mod.me', true),
     ('b@c.com', '2022-05-10', 'mod2@mod.me', false);
 
-INSERT INTO Midia(id_midia, titulo, ano_lancamento, tipo, sinopse, status, nro_capitulos, duracao, plataforma) VALUES
+INSERT INTO Midia(id_midia, titulo, data_lancamento, tipo, sinopse, status, nro_capitulos, duracao, plataforma) VALUES
     (
         '58d2a1b9-ab9d-41f1-93e4-b80073bcef99',
         'Avatar',
@@ -49,6 +49,17 @@ INSERT INTO Midia(id_midia, titulo, ano_lancamento, tipo, sinopse, status, nro_c
         'FINALIZADA',
         NULL,
         '2h 21m',
+        NULL
+    ),
+    (
+        '95dfbb45-1c83-44a9-9593-e0b8c85a282a',
+        'Sherlock Holmes',
+        '2009-12-25',
+        'FILME',
+        'Quando uma série de assassinatos brutais aterroriza Londres, não demora muito para o lendário detetive Sherlock Holmes e seu parceiro solucionador de crimes, o Dr. Watson, encontrar o assassino, Lord Blackwood. Um devoto das artes das trevas, Blackwood tem um esquema maior em mente e sua execução está em seus planos. O jogo está em andamento quando Blackwood parece subir da sepultura, levando Holmes e Watson para o mundo das tecnologias ocultas e estranhas.',
+        'FINALIZADA',
+        NULL,
+        '2h 9m',
         NULL
     ),
     (
@@ -89,7 +100,7 @@ INSERT INTO Midia(id_midia, titulo, ano_lancamento, tipo, sinopse, status, nro_c
         'Harry Potter e a Pedra Filosofal',
         '2020-12-03',
         'AUDIOBOOK',
-        'Uma criança órfã se enrolla em uma escola de magia, onde ele aprende a verdade sobre si mesmo, sua família e o terrível mal que se esconde no mundo mágico.',
+        'Uma criança órfã se matricula em uma escola de magia, onde ele aprende a verdade sobre si mesmo, sua família e o terrível mal que se esconde no mundo mágico.',
         'FINALIZADA',
         17,
         '8h 50m',
@@ -194,7 +205,8 @@ INSERT INTO Participacao(id_participacao, id_midia, nome_pessoa, data_nasc_pesso
     ('402cc123-7463-4db9-a935-64877b81eeb0', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99', 'James Cameron', '1954-08-16', 'DIRETOR', NULL),
     ('f6a92cf4-7a6e-4a8f-bb5b-8122860c6294', '05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'James Cameron', '1954-08-16', 'DIRETOR', NULL),
     ('7f7ef2eb-5fe2-42a1-b2cc-5e0757f36c9f', '92a8e48e-20c5-4269-addb-bc050a2711e6', 'J. K. Rowling', '1965-07-31', 'AUTOR', NULL),
-    ('15247e42-1257-4237-8257-acdce17945a4', '92a8e48e-20c5-4269-addb-bc050a2711e6', 'Ícaro Silva', '1987-03-19', 'ATOR', 'Narrador');
+    ('15247e42-1257-4237-8257-acdce17945a4', '92a8e48e-20c5-4269-addb-bc050a2711e6', 'Ícaro Silva', '1987-03-19', 'ATOR', 'Narrador'),
+    ('2fb7b6cb-37a9-44e8-9703-2d9e2c3cc196', '95dfbb45-1c83-44a9-9593-e0b8c85a282a', 'Robert Downey Jr.', '1965-04-04', 'ATOR', 'Protagonista');
 
 INSERT INTO Indicacao(id_participacao, indicacao, premiado) VALUES
     ('9387f72c-593b-48a3-be44-a33b1429a2b0', 'Oscar de melhor ator em filme de ação', false),
@@ -244,7 +256,10 @@ INSERT INTO Producao(id_midia, nome_organizacao, data_fundacao_organizacao) VALU
 
 INSERT INTO Avaliacao(email, id_midia, nota, conteudo) VALUES
     ('a@b.com', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99', 5, 'Filme muito legal! Ótimos efeitos especiais.'),
-    ('c@d.com', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611', 1, 'Horrível.');
+    ('c@d.com', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611', 1, 'Horrível.'),
+    ('a@b.com', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611', 5, NULL),
+    ('b@c.com', 'c53b10f2-e0f9-49c5-a130-a0ac594d8611', 4, NULL),
+    ('a@b.com', '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef', 5, NULL);
 
 INSERT INTO Mod_Avaliacao(email, email_avaliador, id_midia, data, acao, motivo, penalidade) VALUES
     (
