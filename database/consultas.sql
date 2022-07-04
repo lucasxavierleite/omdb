@@ -27,4 +27,19 @@ SELECT Midia_franquia.nome, AVG(A.media_aval) AS media_aval_franquia, SUM(A.nro_
     FROM Midia
     JOIN (SELECT id_midia, COUNT(*) AS nro_aval, AVG(nota) AS media_aval FROM Avaliacao GROUP BY id_midia) A ON (Midia.id_midia = A.id_midia)
     JOIN Midia_Franquia ON (Midia.id_midia = Midia_Franquia.id_midia)
-    GROUP BY Midia_franquia.nome;
+    GROUP BY Midia_franquia.nome
+    ORDER BY media_aval_franquia;
+
+SELECT Usuario.email, Usuario.nome,
+    COUNT(Mod_Cadastro) AS mod_Cadastro, SUM(Mod_Cadastro.penalidade) AS penalidade_cadastro,
+    COUNT(Mod_Edicao) AS mod_edicao, SUM(Mod_Edicao.penalidade) AS penalidade_edicao,
+    COUNT(Mod_Comentario) AS mod_comentario, SUM(Mod_Comentario.penalidade) AS penalidade_comentario,
+    COUNT(Mod_Avaliacao) AS mod_avaliacao, SUM(Mod_Avaliacao.penalidade) AS penalidade_avaliacao
+    FROM Usuario
+    LEFT JOIN Mod_Cadastro ON (Usuario.email = Mod_Cadastro.email_cadastrante)
+    LEFT JOIN Mod_Edicao ON (Usuario.email = Mod_Edicao.email_editor)
+    LEFT JOIN (
+        Mod_Comentario JOIN Comentario ON (Mod_Comentario.id_comentario = Comentario.id_comentario)
+    ) ON (Usuario.email = Comentario.email)
+    LEFT JOIN Mod_Avaliacao ON (Usuario.email = Mod_Avaliacao.email_avaliador)
+    GROUP BY Usuario.email, Usuario.nome;
