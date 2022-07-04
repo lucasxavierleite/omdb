@@ -198,6 +198,22 @@ INSERT INTO Pessoa(nome, data_nasc, biografia, eh_ator, eh_diretor, eh_autor) VA
         true,
         false,
         true
+    ),
+    (
+        'Sam Worthington',
+        '1976-08-02',
+        NULL,
+        true,
+        false,
+        false
+    ),
+    (
+        'Zoë Saldaña',
+        '1978-06-19',
+        NULL,
+        true,
+        false,
+        false
     );
 
 INSERT INTO Participacao(id_participacao, id_midia, nome_pessoa, data_nasc_pessoa, natureza, descricao) VALUES
@@ -206,11 +222,17 @@ INSERT INTO Participacao(id_participacao, id_midia, nome_pessoa, data_nasc_pesso
     ('f6a92cf4-7a6e-4a8f-bb5b-8122860c6294', '05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'James Cameron', '1954-08-16', 'DIRETOR', NULL),
     ('7f7ef2eb-5fe2-42a1-b2cc-5e0757f36c9f', '92a8e48e-20c5-4269-addb-bc050a2711e6', 'J. K. Rowling', '1965-07-31', 'AUTOR', NULL),
     ('15247e42-1257-4237-8257-acdce17945a4', '92a8e48e-20c5-4269-addb-bc050a2711e6', 'Ícaro Silva', '1987-03-19', 'ATOR', 'Narrador'),
-    ('2fb7b6cb-37a9-44e8-9703-2d9e2c3cc196', '95dfbb45-1c83-44a9-9593-e0b8c85a282a', 'Robert Downey Jr.', '1965-04-04', 'ATOR', 'Protagonista');
+    ('2fb7b6cb-37a9-44e8-9703-2d9e2c3cc196', '95dfbb45-1c83-44a9-9593-e0b8c85a282a', 'Robert Downey Jr.', '1965-04-04', 'ATOR', 'Protagonista'),
+    ('dd25d5eb-df59-4f89-a59e-0892f4231ffe', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99', 'Sam Worthington', '1976-08-02', 'ATOR', 'Protagonista'),
+    ('3435bd83-8ea5-406c-94d6-13b062264355', '58d2a1b9-ab9d-41f1-93e4-b80073bcef99', 'Zoë Saldaña', '1978-06-19', 'ATOR', 'Protagonista'),
+    ('aa0ac18d-e2e5-418f-a03f-81fc7f3e736c', '05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'Sam Worthington', '1976-08-02', 'ATOR', 'Protagonista'),
+    ('6f435d96-a2eb-4a22-b785-984b503dc271', '05b4c947-7856-4a4c-ae85-4a1436b2cc31', 'Zoë Saldaña', '1978-06-19', 'ATOR', 'Protagonista');
 
 INSERT INTO Indicacao(id_participacao, indicacao, premiado) VALUES
     ('9387f72c-593b-48a3-be44-a33b1429a2b0', 'Oscar de melhor ator em filme de ação', false),
-    ('402cc123-7463-4db9-a935-64877b81eeb0', 'Oscar de melhor direção', true);
+    ('402cc123-7463-4db9-a935-64877b81eeb0', 'Oscar de melhor direção', true),
+    ('dd25d5eb-df59-4f89-a59e-0892f4231ffe', 'Oscar de melhor ator em filme de ficção científica', true),
+    ('3435bd83-8ea5-406c-94d6-13b062264355', 'Oscar de melhor atriz em filme de ficção científica', false);
 
 INSERT INTO Organizacao(nome, data_fundacao, descricao, eh_produtora, eh_distribuidora, eh_gravadora, eh_desenvolvedora) VALUES
     (
