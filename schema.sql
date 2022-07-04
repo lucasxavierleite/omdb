@@ -10,7 +10,7 @@ CREATE TABLE Usuario (
 
 CREATE TABLE Promocao (
   email_usuario VARCHAR(255),
-  data TIMESTAMP WITH TIME ZONE,
+  data TIMESTAMP,
   status CHAR(12) DEFAULT 'EM ANDAMENTO' CHECK (
     UPPER(status) IN ('EM ANDAMENTO', 'INDEFERIDA', 'APROVADA')
   ),
@@ -21,7 +21,7 @@ CREATE TABLE Promocao (
 
 CREATE TABLE Voto (
   email_usuario VARCHAR(255),
-  data TIMESTAMP WITH TIME ZONE,
+  data TIMESTAMP,
   email_moderador VARCHAR(255),
   voto BOOLEAN NOT NULL,
   CONSTRAINT PK_Voto PRIMARY KEY (email_usuario, data, email_moderador),
@@ -33,7 +33,7 @@ CREATE TABLE Voto (
 CREATE TABLE Midia (
   id_midia UUID DEFAULT gen_random_uuid(),
   titulo VARCHAR(255) NOT NULL,
-  ano_lancamento DATE NOT NULL,
+  data_lancamento DATE NOT NULL,
   -- Usar INTERVAL YEAR gastaria mais espaço e teria o mesmo efeito
   tipo CHAR(9) DEFAULT 'GENERICA' CHECK (
     UPPER(tipo) IN (
@@ -50,7 +50,7 @@ CREATE TABLE Midia (
   duracao INTERVAL SECOND,
   plataforma VARCHAR(255),
   CONSTRAINT PK_Midia PRIMARY KEY (id_midia),
-  CONSTRAINT UQ_Midia UNIQUE (titulo, ano_lancamento),
+  CONSTRAINT UQ_Midia UNIQUE (titulo, data_lancamento),
   CONSTRAINT CK_Midia_Status CHECK (
     (
       UPPER(status) IN ('EM PRODUCAO', 'FINALIZADA', 'CANCELADA')
@@ -294,7 +294,7 @@ CREATE TABLE Comentario (
   id_comentario UUID DEFAULT gen_random_uuid(),
   email VARCHAR(255) NOT NULL,
   id_midia UUID NOT NULL,
-  data TIMESTAMP WITH TIME ZONE NOT NULL,
+  data TIMESTAMP NOT NULL,
   conteudo TEXT NOT NULL,
   id_comentario_respondido UUID,
   CONSTRAINT PK_Comentario PRIMARY KEY (id_comentario),
