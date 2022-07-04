@@ -11,3 +11,7 @@ SELECT Midia.titulo, Midia.data_lancamento, A.media_aval, Midia_Franquia.nome AS
     JOIN Producao ON (Midia.id_midia = Producao.id_midia AND Producao.nome_organizacao IN ('Marvel Studios', 'Storytel'))
     LEFT JOIN Midia_Franquia ON (Midia.id_midia = Midia_Franquia.id_midia)
     WHERE DATE_PART('year', Midia.data_lancamento) BETWEEN 2018 AND 2020 ORDER BY A.media_aval DESC;
+
+SELECT Participacao.nome_pessoa, Participacao.data_nasc_pessoa, Indicacao.indicacao, Indicacao.premiado FROM (SELECT id_midia FROM Midia WHERE Midia.titulo = 'Avatar') M
+    JOIN Participacao ON (M.id_midia = Participacao.id_midia AND Participacao.natureza = 'ATOR')
+    LEFT JOIN Indicacao ON (Participacao.id_participacao = Indicacao.id_participacao);
