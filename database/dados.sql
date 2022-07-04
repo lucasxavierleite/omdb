@@ -1,4 +1,3 @@
--- O ideal em um cenário real seria usar um hash para a senha (E.g. Bcrypt)
 INSERT INTO
     Usuario(email, nome, senha, tipo)
 VALUES
@@ -66,13 +65,24 @@ VALUES
     ),
     (
         'c53b10f2-e0f9-49c5-a130-a0ac594d8611',
-        'Avengers: Endgame',
+        'Vingadores: Ultimato',
         '2019-04-25',
         'FILME',
         'Após os eventos devastadores de Vingadores: Guerra Infinita , o universo está em ruínas, e com a ajuda de aliados os Vingadores se reúnem para desfazer as ações de Thanos e restaurar a ordem...',
         'FINALIZADA',
         NULL,
         '2h 21m',
+        NULL
+    ),
+    (
+        '2cecfcb3-b35d-49ec-8220-c54f70c3f55a',
+        'Vingadores: Guerra Infinita',
+        '2018-04-23',
+        'FILME',
+        'Homem de Ferro, Thor, Hulk e os Vingadores se unem para combater seu inimigo mais poderoso, o maligno Thanos. Em uma missão para coletar todas as seis pedras infinitas, Thanos planeja usá-las para infligir sua vontade maléfica sobre a realidade.',
+        'FINALIZADA',
+        NULL,
+        '2h 29m',
         NULL
     ),
     (
@@ -287,6 +297,10 @@ VALUES
     (
         '92a8e48e-20c5-4269-addb-bc050a2711e6',
         'Harry Potter'
+    ),
+    (
+        '2cecfcb3-b35d-49ec-8220-c54f70c3f55a',
+        'Vingadores'
     );
 
 INSERT INTO
@@ -461,6 +475,14 @@ VALUES
         '1978-06-19',
         'ATOR',
         'Protagonista'
+    ),
+    (
+        '49d5b8b7-c09d-4145-b6ee-e26c13b8da8c',
+        '2cecfcb3-b35d-49ec-8220-c54f70c3f55a',
+        'Robert Downey Jr.',
+        '1965-04-04',
+        'ATOR',
+        'Protagonista'
     );
 
 INSERT INTO
@@ -583,6 +605,24 @@ VALUES
     (
         'a@b.com',
         '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef',
+        5,
+        NULL
+    ),
+    (
+        'a@b.com',
+        '2cecfcb3-b35d-49ec-8220-c54f70c3f55a',
+        5,
+        NULL
+    ),
+    (
+        'b@c.com',
+        '2cecfcb3-b35d-49ec-8220-c54f70c3f55a',
+        5,
+        NULL
+    ),
+    (
+        'c@d.com',
+        '2cecfcb3-b35d-49ec-8220-c54f70c3f55a',
         5,
         NULL
     );
