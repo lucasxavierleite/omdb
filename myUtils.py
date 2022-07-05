@@ -1,5 +1,6 @@
 import os
 import datetime
+import re
 
 
 def clearScreen():
@@ -35,20 +36,37 @@ def readInt(message):
 def readMediaDuration(message):
     while True:
         try:
-            duration = readInt(message)
-            return datetime.timedelta(seconds=duration)
+            durationCapture = re.search(
+                r'(\d\d+):(\d{2}):(\d{2})', input(message))
+
+            if(durationCapture is None):
+                raise ValueError()
+
+            hours = int(durationCapture.group(1))
+            minutes = int(durationCapture.group(2))
+            seconds = int(durationCapture.group(3))
+
+            if(minutes > 59 or seconds > 59):
+                raise ValueError()
+
+            return datetime.timedelta(hours=hours, minutes=minutes, seconds=seconds)
         except ValueError:
-            print("Insira uma duração válida!")
+            print("Insira uma duração válida! No formato hh:mm:ss")
 
 
-def readMediaYear(message):
+def readMediaReleaseDate(message):
     while True:
         try:
-            year = readInt(message)
-            yearDate = datetime.date(year, 1, 1)
-            return yearDate
+            dateCapture = re.search(r'(\d{2})/(\d{2})/(\d{4})', input(message))
+            if(dateCapture is None):
+                raise ValueError()
+            day = int(dateCapture.group(1))
+            month = int(dateCapture.group(2))
+            year = int(dateCapture.group(3))
+            date = datetime.date(year, month, day)
+            return date
         except ValueError:
-            print("Insira um ano válido!")
+            print("Insira uma data válida! No formato dd/mm/yyyy")
 
 
 def readMediaType(message):
