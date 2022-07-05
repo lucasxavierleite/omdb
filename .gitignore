@@ -1,2 +1,3 @@
 database/.project
 __pycache__
+.env
