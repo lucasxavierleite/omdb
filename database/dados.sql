@@ -597,12 +597,6 @@ VALUES
         NULL
     ),
     (
-        'b@c.com',
-        'c53b10f2-e0f9-49c5-a130-a0ac594d8611',
-        4,
-        NULL
-    ),
-    (
         'a@b.com',
         '1ff2ed2f-d9e4-4edd-825f-10c0e0d690ef',
         5,

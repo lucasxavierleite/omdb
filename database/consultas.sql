@@ -106,3 +106,32 @@ FROM
 GROUP BY
     Usuario.email,
     Usuario.nome;
+
+-- Consultar todos Usuários que avaliaram todas as Mídias de uma dada Franquia.
+SELECT
+    email,
+    nome
+FROM
+    Usuario AS U
+WHERE
+    NOT EXISTS (
+        (
+            SELECT
+                Midia.id_midia
+            FROM
+                Midia,
+                Midia_Franquia
+            WHERE
+                Midia.id_midia = Midia_Franquia.id_midia
+                AND Midia_Franquia.nome = 'Vingadores'
+        )
+        EXCEPT
+            (
+                SELECT
+                    id_midia
+                FROM
+                    Avaliacao
+                WHERE
+                    email = U.email
+            )
+    );
